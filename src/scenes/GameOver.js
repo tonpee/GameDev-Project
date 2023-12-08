@@ -47,15 +47,26 @@ class GameOver extends Phaser.Scene {
     const scoreText = this.add.text(
       640,
       400,
-      `Score: ${this.currentScore}
-      High Score: ${sessionStorage.getItem("highScore")}`,
+      `Score: ${this.currentScore}`,
       {
         fontFamily: "Arial",
         fontSize: 24,
         color: "#ffffff",
       }
     );
-    scoreText.setOrigin(0.5);
+    scoreText.setOrigin(0.5, 0.5);
+    
+    const highScoreText = this.add.text(
+        640,
+        440,
+        `High Score: ${sessionStorage.getItem("highScore")}`,
+        {
+          fontFamily: "Arial",
+          fontSize: 24,
+          color: "#ffffff",
+        }
+      );
+      highScoreText.setOrigin(0.5, 0.5);
 
     const gameOverText = this.add.image(640, 300, "GameOverText");
     gameOverText.setDisplaySize(800, 400); // ตั้งค่าขนาดของรูปภาพ

@@ -11,7 +11,10 @@ class JellyGame extends Phaser.Scene {
     });
   }
   preload() {
-    this.load.image("background", "./../../assets/background/underwater-fantasy-preview.png");
+    this.load.image(
+      "background",
+      "./../../assets/background/underwater-fantasy-preview.png"
+    );
     PlayerMovement.preload.call(this);
     EnemiesMovement.preload.call(this);
     this.load.image("coin", "./../../assets/coin/Coin.png");
@@ -22,9 +25,15 @@ class JellyGame extends Phaser.Scene {
     score = 0;
   }
   create() {
-    this.bg = this.add.tileSprite(0, 0, 768, 192, "background").setOrigin(0, 0).setDepth(-999).setScale(4);
+    this.bg = this.add
+      .tileSprite(0, 0, 768, 192, "background")
+      .setOrigin(0, 0)
+      .setDepth(-999)
+      .setScale(4);
     PlayerMovement.create.call(this);
     this.startTime = this.time.now;
+    this.ells = this.physics.add.group();
+    this.sails = this.physics.add.group();
     EnemiesMovement.create.call(this);
 
     this.coins = this.physics.add.staticGroup();
@@ -53,6 +62,13 @@ class JellyGame extends Phaser.Scene {
     //   this
     // );
 
+    this.showScore = this.add.text(650, 20, `Score: ${score}`, {
+      fontFamily: "Arial",
+      fontSize: 24,
+      color: "#ffffff",
+    });
+    this.showScore.setOrigin(0.5, 0.5);
+
     this.createEvents();
   }
   update() {
@@ -66,22 +82,27 @@ class JellyGame extends Phaser.Scene {
     let timeToSpawnEnemies = 6500;
 
     if (elapsedTime % 500 === 0) {
-        console.log(elapsedTime);
+      console.log(elapsedTime);
     }
 
-    if (elapsedTime % 22000 === 0 || elapsedTime % 22000 === 1) {
-        amountOfEnemies++;
-        console.log("plus enemies");
-        timeToSpawnEnemies -= 150;
-        console.log(`timeToSpawnEnemies = ${timeToSpawnEnemies}`);
+    if (elapsedTime % 22000 < 15 || elapsedTime % 22000 > 21985) {
+      amountOfEnemies++;
+      console.log("plus enemies");
+      timeToSpawnEnemies -= 150;
+      console.log(`timeToSpawnEnemies = ${timeToSpawnEnemies}`);
     }
 
-    if (elapsedTime % timeToSpawnEnemies === 0) {
-        for (let i = 0; i <= amountOfEnemies; i++) {
-            EnemiesMovement.create.call(this);
-        }
-        console.log("spawn");
+    if (
+      elapsedTime % timeToSpawnEnemies < 15 ||
+      elapsedTime % timeToSpawnEnemies > timeToSpawnEnemies - 15
+    ) {
+      for (let i = 0; i <= amountOfEnemies; i++) {
+        EnemiesMovement.create.call(this);
+      }
+      console.log("spawn");
     }
+
+    this.showScore.setText(`Score: ${score}`);
   }
 
   initCoins(numberOfCoins = 1) {
@@ -89,13 +110,17 @@ class JellyGame extends Phaser.Scene {
       const fence = 80;
       const randomX = Phaser.Math.Between(fence, 1280 - fence);
       const randomY = Phaser.Math.Between(fence, 720 - fence);
-      this.coins.create(randomX, randomY, "coin").setScale(0.3).setBodySize(30, 37).setOffset(44, 49);
+      this.coins
+        .create(randomX, randomY, "coin")
+        .setScale(0.3)
+        .setBodySize(30, 37)
+        .setOffset(44, 49);
     }
   }
 
   createEvents() {
     this.events.on(
-      'createNewCoin',
+      "createNewCoin",
       function () {
         // Use delayedCall to add a delay of 1 second (1000 milliseconds) before creating a new coin
         this.time.delayedCall(1000, this.initCoins, [1], this);
@@ -104,7 +129,7 @@ class JellyGame extends Phaser.Scene {
     );
 
     this.events.on(
-      'addScore',
+      "addScore",
       function () {
         score++;
       },
@@ -112,11 +137,11 @@ class JellyGame extends Phaser.Scene {
     );
 
     this.events.on(
-      'gameOver',
+      "gameOver",
       function () {
         console.log("GameOver");
         this.scene.start("GameOver", { score: score });
-        this.events.off("gameOver")
+        this.events.off("gameOver");
         this.events.off("collectedCoin");
         this.events.off("createNewCoin");
       }.bind(this)
@@ -125,12 +150,12 @@ class JellyGame extends Phaser.Scene {
 
   collectCoin(player, coin) {
     coin.destroy();
-    this.events.emit('createNewCoin');
-    this.events.emit('addScore');
+    this.events.emit("createNewCoin");
+    this.events.emit("addScore");
     console.log(score);
   }
   gameOver() {
-    this.events.emit('gameOver')
+    this.events.emit("gameOver");
   }
 }
 

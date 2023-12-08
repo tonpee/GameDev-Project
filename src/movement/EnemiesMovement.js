@@ -28,7 +28,7 @@ export function create() {
     frameRate: 6,
     repeat: -1,
   });
-  this.ell.setVelocityY(-300);
+  //   this.ell.setVelocityY(-300);
 
   let randomYForSail = Phaser.Math.Between(720 - distance, 0 + distance);
   this.sail = this.physics.add // นำ `sail.physics.add` ออก
@@ -45,14 +45,29 @@ export function create() {
     frameRate: 6,
     repeat: -1,
   });
-  this.sail.setVelocityX(300);
+  //   this.sail.setVelocityX(300);
 
   this.physics.add.overlap(this.player, this.ell, this.gameOver, null, this);
 
   this.physics.add.overlap(this.player, this.sail, this.gameOver, null, this);
+
+  this.ells.add(this.ell);
+  this.sails.add(this.sail);
+  this.ells.children.iterate((ell) => {
+    ell.setVelocityY(-300);
+  });
+  this.sails.children.iterate((sail) => {
+    sail.setVelocityX(300);
+  });
 }
 
 export function update() {
-  this.ell.anims.play("ell-attack", true);
-  this.sail.anims.play("sail-attack", true);
+  //   this.ell.anims.play("ell-attack", true);
+  //   this.sail.anims.play("sail-attack", true);
+  this.ells.children.iterate((ell) => {
+    ell.anims.play("ell-attack", true);
+  });
+  this.sails.children.iterate((sail) => {
+    sail.anims.play("sail-attack", true);
+  });
 }

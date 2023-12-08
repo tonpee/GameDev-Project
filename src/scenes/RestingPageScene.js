@@ -7,31 +7,21 @@ class RestingPageScene extends Phaser.Scene {
 
   preload() {
     // Preload any assets needed for the resting page (if any)
+    this.load.image("gameStartBackground", "./../../assets/background/GameStart.png");
+    this.load.image("startIcon", "./../../assets/icon/startIcon.png");
   }
 
   create() {
     // Create the resting page UI elements
 
     // Add a background
-    this.add.rectangle(400, 300, 800, 600, 0x000000);
-    
-    // Add text
-    this.add
-      .text(400, 200, "Welcome to Your Arcade Game", {
-        fontSize: "32px",
-        fill: "#fff",
-      })
-      .setOrigin(0.5, 0.5);
+    this.add.image(0, 0, "gameStartBackground").setOrigin(0, 0);
 
     // Add the Start button
     var startButton = this.add
-      .text(400, 300, "Start", {
-        fontSize: "24px",
-        fill: "#fff",
-        backgroundColor: "#00f",
-        padding: 10,
-      })
+      .image(650, 500, "startIcon")
       .setOrigin(0.5, 0.5)
+      .setScale(0.29)
       .setInteractive();
 
     // Set up the button click event
