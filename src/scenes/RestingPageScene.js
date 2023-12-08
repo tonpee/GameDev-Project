@@ -14,7 +14,7 @@ class RestingPageScene extends Phaser.Scene {
 
     // Add a background
     this.add.rectangle(400, 300, 800, 600, 0x000000);
-
+    
     // Add text
     this.add
       .text(400, 200, "Welcome to Your Arcade Game", {
