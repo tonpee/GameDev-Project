@@ -46,6 +46,10 @@ export function create() {
     repeat: -1,
   });
   this.sail.setVelocityX(300);
+
+  this.physics.add.overlap(this.player, this.ell, this.gameOver, null, this);
+
+  this.physics.add.overlap(this.player, this.sail, this.gameOver, null, this);
 }
 
 export function update() {

@@ -3,6 +3,7 @@ import Phaser from "phaser";
 // import jellyGame from './newGame/jellyGame';
 import RestingPageScene from "./scenes/RestingPageScene";
 import JellyGame from "./scenes/JellyGame";
+import GameOver from "./scenes/GameOver";
 
 const config = {
   type: Phaser.AUTO,
@@ -16,6 +17,6 @@ const config = {
       debug: true, // true show hitbox
     },
   },
-  scene: [RestingPageScene, JellyGame],
+  scene: [RestingPageScene, JellyGame, GameOver],
 };
 let game = new Phaser.Game(config);
