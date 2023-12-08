@@ -58,6 +58,7 @@ module.exports = {
     }),
     new CopyWebpackPlugin([
             {from: './src/scenes', to: './src/scenes'},
+            {from: './assets', to: './assets'},
     ])
   ],
   module: {
