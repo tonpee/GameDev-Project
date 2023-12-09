@@ -3,6 +3,8 @@ import * as PlayerMovement from "../movement/PlayerMovement";
 import * as EnemiesMovement from "../movement/EnemiesMovement";
 import GameOver from "./GameOver";
 let score = 0;
+let amountOfEnemies = 5;
+let timeToSpawnEnemies = 6200;
 
 class JellyGame extends Phaser.Scene {
   constructor() {
@@ -65,14 +67,13 @@ class JellyGame extends Phaser.Scene {
     //show time in milliseconds
     const elapsedTime = this.time.now - this.startTime;
     // console.log(elapsedTime);
-    let amountOfEnemies = 5;
-    let timeToSpawnEnemies = 6200;
+    
 
     if (elapsedTime % 500 === 0) {
       console.log(elapsedTime);
     }
 
-    if (elapsedTime % 22000 < 15 || elapsedTime % 22000 > 21985) {
+    if (elapsedTime % 22000 < 10 || elapsedTime % 22000 > 21990) {
       amountOfEnemies++;
       console.log("plus enemies");
       timeToSpawnEnemies -= 180;
@@ -80,8 +81,8 @@ class JellyGame extends Phaser.Scene {
     }
 
     if (
-      elapsedTime % timeToSpawnEnemies < 15 ||
-      elapsedTime % timeToSpawnEnemies > timeToSpawnEnemies - 15
+      elapsedTime % timeToSpawnEnemies < 10 ||
+      elapsedTime % timeToSpawnEnemies > timeToSpawnEnemies - 10
     ) {
       for (let i = 0; i <= amountOfEnemies; i++) {
         EnemiesMovement.create.call(this);

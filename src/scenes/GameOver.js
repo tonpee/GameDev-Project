@@ -78,12 +78,17 @@ class GameOver extends Phaser.Scene {
       .setInteractive();
     // Set up the button click event
     homeButton.on(
-      "pointerdown",
-      function () {
-        this.scene.start("RestingPageScene");
-      },
-      this
-    );
+        "pointerdown",
+        function () {
+          this.scene.start("JellyGame");
+          this.bubbleSoundButton = this.sound.add("bubbleSoundButton", {
+            loop: false,
+            volume: 1,
+          });
+          this.bubbleSoundButton.play(); // Add this line to play the sound
+        },
+        this
+      );
 
     var restartGameButton = this.add
       .image(853, 500, "restartGameButton")
@@ -91,12 +96,17 @@ class GameOver extends Phaser.Scene {
       .setInteractive();
     // Set up the button click event
     restartGameButton.on(
-      "pointerdown",
-      function () {
-        this.scene.start("JellyGame");
-      },
-      this
-    );
+        "pointerdown",
+        function () {
+          this.scene.start("JellyGame");
+          this.bubbleSoundButton = this.sound.add("bubbleSoundButton", {
+            loop: false,
+            volume: 1,
+          });
+          this.bubbleSoundButton.play(); // Add this line to play the sound
+        },
+        this
+      );
   }
 
   update() {}

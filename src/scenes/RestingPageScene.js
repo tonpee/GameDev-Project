@@ -10,6 +10,7 @@ class RestingPageScene extends Phaser.Scene {
     this.load.image("gameStartBackground", "./../../assets/background/GameStart.png");
     this.load.image("startIcon", "./../../assets/icon/startIcon.png");
     this.load.audio("bgUnderwater", "./../../assets/music/underwater-loop-amb-6182.mp3")
+    this.load.audio("bubbleSoundButton", "./../../assets/music/bubbleSoundButton.wav")
   }
 
   create() {
@@ -32,6 +33,11 @@ class RestingPageScene extends Phaser.Scene {
       "pointerdown",
       function () {
         this.scene.start("JellyGame");
+        this.bubbleSoundButton = this.sound.add("bubbleSoundButton", {
+          loop: false,
+          volume: 1,
+        });
+        this.bubbleSoundButton.play();
       },
       this
     );
