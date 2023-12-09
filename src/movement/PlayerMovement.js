@@ -20,8 +20,7 @@ export function preload() {
 export function create() {
   this.player = this.physics.add
     .sprite(640, 360, "jelly-stay")
-    .setScale()
-    .setScale(5)
+    .setScale(4.5)
     .setSize(9, 13)
     .setOffset(12, 28);
   this.player.setCollideWorldBounds(true);

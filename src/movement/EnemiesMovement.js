@@ -32,7 +32,7 @@ export function create() {
 
   let randomYForSail = Phaser.Math.Between(720 - distance, 0 + distance);
   this.sail = this.physics.add // นำ `sail.physics.add` ออก
-    .sprite(100, randomYForSail, "sail")
+    .sprite(0, randomYForSail, "sail")
     .setScale(2)
     .setSize(40, 15)
     .setOffset(2, 18);

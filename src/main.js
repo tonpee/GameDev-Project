@@ -14,7 +14,7 @@ const config = {
   physics: {
     default: "arcade",
     arcade: {
-      debug: true, // true show hitbox
+      debug: false, // true show hitbox
     },
   },
   scene: [RestingPageScene, JellyGame, GameOver],

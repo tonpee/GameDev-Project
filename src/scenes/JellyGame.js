@@ -18,6 +18,7 @@ class JellyGame extends Phaser.Scene {
     PlayerMovement.preload.call(this);
     EnemiesMovement.preload.call(this);
     this.load.image("coin", "./../../assets/coin/Coin.png");
+    this.load.audio("backgroundMusic", "./../../assets/music/jellyfish_jam.mp3")
   }
   init() {
     this.events.removeListener("addScore");
@@ -46,22 +47,6 @@ class JellyGame extends Phaser.Scene {
       this
     );
 
-    // this.physics.add.overlap(
-    //   this.player,
-    //   this.ell,
-    //   this.gameOver,
-    //   null,
-    //   this
-    // );
-
-    // this.physics.add.overlap(
-    //   this.player,
-    //   this.sail,
-    //   this.gameOver,
-    //   null,
-    //   this
-    // );
-
     this.showScore = this.add.text(650, 20, `Score: ${score}`, {
       fontFamily: "Arial",
       fontSize: 24,
@@ -70,6 +55,8 @@ class JellyGame extends Phaser.Scene {
     this.showScore.setOrigin(0.5, 0.5);
 
     this.createEvents();
+    this.backgroundMusic = this.sound.add('backgroundMusic', { loop: true, volume: 0.5 });
+    this.backgroundMusic.play();
   }
   update() {
     PlayerMovement.update.call(this);
@@ -78,8 +65,8 @@ class JellyGame extends Phaser.Scene {
     //show time in milliseconds
     const elapsedTime = this.time.now - this.startTime;
     // console.log(elapsedTime);
-    let amountOfEnemies = 4;
-    let timeToSpawnEnemies = 6500;
+    let amountOfEnemies = 5;
+    let timeToSpawnEnemies = 6200;
 
     if (elapsedTime % 500 === 0) {
       console.log(elapsedTime);
@@ -88,7 +75,7 @@ class JellyGame extends Phaser.Scene {
     if (elapsedTime % 22000 < 15 || elapsedTime % 22000 > 21985) {
       amountOfEnemies++;
       console.log("plus enemies");
-      timeToSpawnEnemies -= 150;
+      timeToSpawnEnemies -= 180;
       console.log(`timeToSpawnEnemies = ${timeToSpawnEnemies}`);
     }
 
@@ -144,6 +131,7 @@ class JellyGame extends Phaser.Scene {
         this.events.off("gameOver");
         this.events.off("collectedCoin");
         this.events.off("createNewCoin");
+        this.backgroundMusic.stop();
       }.bind(this)
     );
   }
